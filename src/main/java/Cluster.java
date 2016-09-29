@@ -60,7 +60,7 @@ public class Cluster {
             return "";
         StringBuilder sb = new StringBuilder();
         for(Point p : points){
-            sb.append(p.getxIndex()+','+p.getyIndex()+';');
+            sb.append(String.valueOf(p.getxIndex())+','+String.valueOf(p.getyIndex())+';');
         }
         return  sb.toString();
     }
@@ -73,9 +73,20 @@ public class Cluster {
         if (points == null)
             return;
         CompoundComparator<Point> cc = new CompoundComparator<Point>();
-        cc.addComparator( Point.getDateComparator( SortOrder.ASCENDING ) );
+        cc.addComparator( Point.getPointComparator( SortOrder.ASCENDING ) );
         Collections.sort( points, cc );
     }
+
+    public void sortPointsByDistance(){
+        if (points == null)
+            return;
+        CompoundComparator<Point> cc = new CompoundComparator<Point>();
+        cc.addComparator( Point.getPointDistanceComparator( SortOrder.ASCENDING, centroid) );
+        Collections.sort( points, cc );
+    }
+
+
+
 
 //    public  Boolean regenerateCluster(LinkedList<Cluster> clusters,LinkedList<Point> sourcePoints){
 //

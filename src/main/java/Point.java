@@ -57,7 +57,7 @@ public class Point  {
     }
 
 
-    public static Comparator<Point> getDateComparator(final SortOrder sortOrder ) {
+    public static Comparator<Point> getPointComparator(final SortOrder sortOrder ) {
 
         Comparator<Point> CompoundComparator = new CompoundComparator<Point>() {
 
@@ -70,6 +70,22 @@ public class Point  {
                 if( p1.getyIndex() > p2.getyIndex() )
                     return 1;
                 if( p1.getyIndex() < p2.getyIndex() )
+                    return -1;
+                return 0;
+            }
+        };
+        return CompoundComparator;
+    }
+
+    public static Comparator<Point> getPointDistanceComparator(final SortOrder sortOrder , Point p) {
+
+        Comparator<Point> CompoundComparator = new CompoundComparator<Point>() {
+
+            @Override
+            public int compare( Point p1, Point p2 ) {
+                if( p.getDistanceToPoint(p1) > p.getDistanceToPoint(p2) )
+                    return 1;
+                if( p.getDistanceToPoint(p1) < p.getDistanceToPoint(p2) )
                     return -1;
                 return 0;
             }
